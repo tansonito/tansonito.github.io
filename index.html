@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ado Hibana World Tour Countdown</title>
+  <style>
+    :root {
+      --primary-color: #b93b57;
+      --secondary-color: #0a0a0a;
+      --text-color: #f0f0f0;
+      --accent-color: #8dc6cb;
+      --background-color: #1a1a1a;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--background-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--secondary-color);
+      padding: 2rem 0;
+      text-align: center;
+      border-bottom: 4px solid var(--primary-color);
+    }
+
+    .logo {
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--primary-color);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 0.5rem;
+      text-decoration: none;
+    }
+
+    .logo:hover {
+      text-shadow: 0 0 10px rgba(185, 59, 87, 0.7);
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--text-color);
+      letter-spacing: 2px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .tour-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .tour-card {
+      background-color: rgba(0, 0, 0, 0.7);
+      border: 1px solid var(--primary-color);
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .tour-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(185, 59, 87, 0.3);
+    }
+
+    .venue {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--accent-color);
+    }
+
+    .city {
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      color: var(--primary-color);
+    }
+
+    .date {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .time {
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .countdown {
+      background-color: rgba(185, 59, 87, 0.2);
+      padding: 1rem;
+      border-radius: 4px;
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .countdown-display {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-color);
+    }
+
+    footer {
+      background-color: var(--secondary-color);
+      padding: 1.5rem 0;
+      text-align: center;
+      border-top: 4px solid var(--primary-color);
+      margin-top: 3rem;
+    }
+
+    .footer-text {
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      margin: 2rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--primary-color);
+      color: var(--accent-color);
+    }
+
+    .past-event {
+      opacity: 0.6;
+    }
+
+    .past-event .countdown-display {
+      color: var(--primary-color);
+    }
+
+    @media (max-width: 768px) {
+      .tour-grid {
+        grid-template-columns: 1fr;
+      }
+
+      header {
+        padding: 1.5rem 0;
+      }
+
+      .logo {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="logo">ADO</a>
+    <div class="subtitle">HIBANA WORLD TOUR 2025</div>
+  </header>
+
+  <div class="container">
+    <div class="section-title">ASIA & AUSTRALIA</div>
+    <div class="tour-grid" id="asia-australia-grid"></div>
+
+    <div class="section-title">EUROPE</div>
+    <div class="tour-grid" id="europe-grid"></div>
+
+    <div class="section-title">NORTH AMERICA</div>
+    <div class="tour-grid" id="north-america-grid"></div>
+
+    <div class="section-title">LATIN AMERICA</div>
+    <div class="tour-grid" id="latin-america-grid"></div>
+  </div>
+
+<footer>
+  <div class="footer-text">
+    This is a fan-made site and is not affiliated with Ado or her team. All information is based on the official Hibana website found 
+    <a href="https://sp.universal-music.co.jp/ado/hibana/" target="_blank" rel="noopener noreferrer" style="color: var(--primary-color);">here</a>.
+  </div>
+</footer>
+
+
+  <script>
+    // Full tour data injected from original HTML
+    const tourData = {
+            asiaAustralia: [
+                {
+                    city: "Saitama",
+                    venue: "Saitama Super Arena (Stadium Mode)",
+                    date: "2025-04-26T17:00:00+09:00",
+                    merch: "9:00",
+                    doors: "15:30",
+                    show: "17:00",
+                    ticketStatus: "SOLD OUT"
+                },
+                {
+                    city: "Saitama",
+                    venue: "Saitama Super Arena (Stadium Mode)",
+                    date: "2025-04-27T16:00:00+09:00",
+                    merch: "9:00",
+                    doors: "14:30",
+                    show: "16:00",
+                    ticketStatus: "SOLD OUT"
+                },
+                {
+                    city: "Bangkok",
+                    venue: "IMPACT Exhibition Hall 5-6",
+                    date: "2025-05-04T18:00:00+07:00",
+                    merch: "10:00",
+                    doors: "16:00",
+                    show: "18:00",
+                    ticketStatus: "AVAILABLE"
+                },
+                {
+                    city: "Manila",
+                    venue: "SM Mall of Asia Arena",
+                    date: "2025-05-08T20:00:00+08:00",
+                    merch: "10:00",
+                    doors: "18:00",
+                    show: "20:00",
+                    ticketStatus: "AVAILABLE"
+                },
+                {
+                    city: "Taipei",
+                    venue: "Linkou Arena",
+                    date: "2025-05-11T18:00:00+08:00",
+                    merch: "10:00",
+                    doors: "16:00",
+                    show: "18:00",
+                    ticketStatus: "SOLD OUT"
+                },
+                {
+                    city: "Seoul",
+                    venue: "KINTEX Hall 9",
+                    date: "2025-05-15T20:00:00+09:00",
+                    merch: "10:00",
+                    doors: "18:00",
+                    show: "20:00",
+                    ticketStatus: "SOLD OUT"
+                },
+                {
+                    city: "Hong Kong",
+                    venue: "AsiaWorld-Arena",
+                    date: "2025-05-18T17:00:00+08:00",
+                    merch: "10:00",
+                    doors: "15:00",
+                    show: "17:00",
+                    ticketStatus: "SOLD OUT"
+                },
+                {
+                    city: "Singapore",
+                    venue: "Singapore Indoor Stadium",
+                    date: "2025-05-21T20:00:00+08:00",
+                    merch: "10:00",
+                    doors: "18:00",
+                    show: "20:00",
+                    ticketStatus: "SOLD OUT"
+                },
+                {
+                    city: "Sydney",
+                    venue: "Qudos Bank Arena",
+                    date: "2025-05-25T20:00:00+10:00",
+                    merch: "10:00",
+                    doors: "TBD",
+                    show: "20:00",
+                    ticketStatus: "AVAILABLE"
+                },
+                {
+                    city: "Melbourne",
+                    venue: "Rod Laver Arena",
+                    date: "2025-05-27T20:00:00+10:00",
+                    merch: "10:00",
+                    doors: "TBD",
+                    show: "20:00",
+                    ticketStatus: "AVAILABLE"
+                }
+            ],
+            europe: [
+                {
+                    city: "Antwerp",
+                    venue: "Sportpaleis",
+                    date: "2025-06-10T20:30:00+02:00",
+                    doors: "18:30",
+                    show: "20:30",
+                    ticketStatus: "AVAILABLE"
+                },
+                {
+                    city: "Copenhagen",
+                    venue: "Royal Arena",
+                    date: "2025-06-14T20:30:00+02:00",
+                    doors: "18:30",
+                    show: "20:30",
+                    ticketStatus: "AVAILABLE"
+                },
+                {
+                    city: "Berlin",
+                    venue: "Uber Arena",
+                    date: "2025-06-17T20:30:00+02:00",
+                    doors: "18:30",
+                    show: "20:30",
+                    ticketStatus: "SOLD OUT"
+                },
+                {
+                    city: "London",
+                    venue: "The O2",
+                    date: "2025-06-19T20:30:00+01:00",
+                    doors: "18:30",
+                    show: "20:30",
+                    ticketStatus: "AVAILABLE"
+                },
+                {
+                    city: "Amsterdam",
+                    venue: "Ziggo Dome",
+                    date: "2025-06-21T20:30:00+02:00",
+                    doors: "18:30",
+                    show: "20:30",
+                    ticketStatus: "SOLD OUT"
+                },
+                {
+                    city: "Paris",
+                    venue: "Accor Arena",
+                    date: "2025-06-25T20:30:00+02:00",
+                    doors: "18:30",
+                    show: "20:30",
+                    ticketStatus: "SOLD OUT"
+                },
+                {
+                    city: "Barcelona",
+                    venue: "Palau Sant Jordi",
+                    date: "2025-06-29T20:30:00+02:00",
+                    doors: "18:30",
+                    show: "20:30",
+                    ticketStatus: "AVAILABLE"
+                },
+                {
+                    city: "Milan",
+                    venue: "Unipol Forum",
+                    date: "2025-07-02T20:30:00+02:00",
+                    doors: "18:30",
+                    show: "20:30",
+                    ticketStatus: "SOLD OUT"
+                }
+            ],
+            northAmerica: [
+                {
+                    city: "Seattle, WA",
+                    venue: "Tacoma Dome",
+                    date: "2025-07-10T20:00:00-07:00",
+                    doors: "18:30",
+                    show: "20:00",
+                    ticketStatus: "AVAILABLE"
+                },
+                {
+                    city: "San Jose, CA",
+                    venue: "SAP Center",
+                    date: "2025-07-13T20:00:00-07:00",
+                    doors: "18:30",
+                    show: "20:00",
+                    ticketStatus: "SOLD OUT"
+                },
+                {
+                    city: "Los Angeles, CA",
+                    venue: "Crypto.com Arena",
+                    date: "2025-07-16T20:00:00-07:00",
+                    doors: "18:30",
+                    show: "20:00",
+                    ticketStatus: "SOLD OUT"
+                },
+                {
+                    city: "Phoenix, AZ",
+                    venue: "PHX Arena – Formerly Footprint Center",
+                    date: "2025-07-19T20:00:00-07:00",
+                    doors: "18:30",
+                    show: "20:00",
+                    ticketStatus: "AVAILABLE"
+                },
+                {
+                    city: "Fort Worth, TX",
+                    venue: "Dickies Arena",
+                    date: "2025-07-22T20:00:00-05:00",
+                    doors: "18:30",
+                    show: "20:00",
+                    ticketStatus: "AVAILABLE"
+                },
+                {
+                    city: "Duluth, GA",
+                    venue: "Gas South Arena",
+                    date: "2025-07-24T20:00:00-04:00",
+                    doors: "18:30",
+                    show: "20:00",
+                    ticketStatus: "AVAILABLE"
+                },
+                {
+                    city: "Orlando, FL",
+                    venue: "Kia Center",
+                    date: "2025-07-26T20:00:00-04:00",
+                    doors: "18:30",
+                    show: "20:00",
+                    ticketStatus: "AVAILABLE"
+                },
+                {
+                    city: "Baltimore, MD",
+                    venue: "CFG Bank Arena",
+                    date: "2025-07-29T20:00:00-04:00",
+                    doors: "18:30",
+                    show: "20:00",
+                    ticketStatus: "AVAILABLE"
+                },
+                {
+                    city: "Chicago, IL",
+                    venue: "United Center",
+                    date: "2025-07-31T20:00:00-05:00",
+                    doors: "18:30",
+                    show: "20:00",
+                    ticketStatus: "AVAILABLE"
+                },
+                {
+                    city: "Toronto, ON",
+                    venue: "Scotiabank Arena",
+                    date: "2025-08-03T20:00:00-04:00",
+                    doors: "18:30",
+                    show: "20:00",
+                    ticketStatus: "SOLD OUT"
+                },
+                {
+                    city: "Newark, NJ",
+                    venue: "Prudential Center",
+                    date: "2025-08-05T20:00:00-04:00",
+                    doors: "18:30",
+                    show: "20:00",
+                    ticketStatus: "SOLD OUT"
+                },
+                {
+                    city: "Honolulu, HI",
+                    venue: "Blaisdell Arena",
+                    date: "2025-08-24T20:00:00-10:00",
+                    doors: "18:30",
+                    show: "20:00",
+                    ticketStatus: "SOLD OUT"
+                }
+            ],
+            latinAmerica: [
+                {
+                    city: "Mexico City",
+                    venue: "Arena Ciudad de Mexico",
+                    date: "2025-08-08T20:00:00-05:00",
+                    doors: "18:30",
+                    show: "20:00",
+                    ticketStatus: "SOLD OUT"
+                },
+                {
+                    city: "São Paulo",
+                    venue: "Espaco Unimed",
+                    date: "2025-08-13T20:30:00-03:00",
+                    doors: "18:30",
+                    show: "20:30",
+                    ticketStatus: "AVAILABLE"
+                },
+                {
+                    city: "Buenos Aires",
+                    venue: "Movistar Arena",
+                    date: "2025-08-15T20:30:00-03:00",
+                    doors: "18:30",
+                    show: "20:30",
+                    ticketStatus: "AVAILABLE"
+                },
+                {
+                    city: "Santiago",
+                    venue: "Movistar Arena",
+                    date: "2025-08-18T20:30:00-04:00",
+                    doors: "18:30",
+                    show: "20:30",
+                    ticketStatus: "AVAILABLE"
+                }
+            ]
+        };
+    
+    // Add setlist data
+    const setlistData = {
+      "2025-04-26T17:00:00+09:00": "Apr262025",
+      "2025-04-27T16:00:00+09:00": "Apr272025",
+      "2025-05-04T18:00:00+07:00": "May42025",
+      "2025-05-08T20:00:00+08:00": "May82025"
+    };
+
+    function formatTimeRemaining(timeRemaining) {
+      const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+      return { days, hours, minutes, seconds };
+    }
+
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      return date.toLocaleDateString(undefined, options);
+    }
+
+    function createTourCard(event) {
+      const card = document.createElement('div');
+      card.className = 'tour-card';
+
+      const eventDate = new Date(event.date);
+      const now = new Date();
+      const isPastEvent = eventDate < now;
+      if (isPastEvent) card.classList.add('past-event');
+
+      const formattedDate = formatDate(event.date);
+      const timeRemaining = eventDate - now;
+      const formatted = formatTimeRemaining(Math.max(timeRemaining, 0));
+
+      let cardContent = `
+        <div class="city">${event.city}</div>
+        <div class="venue">${event.venue}</div>
+        <div class="date">${formattedDate}</div>
+        <div class="time">
+          ${event.merch ? `Merch: ${event.merch} ` : ''}
+          Doors: ${event.doors} Show: ${event.show}
+        </div>
+        <div class="countdown">
+          <div class="countdown-display">
+            ${isPastEvent ? 'SHOW COMPLETED' :
+            `${formatted.days}d ${formatted.hours}h ${formatted.minutes}m ${formatted.seconds}s`}
+          </div>
+        </div>
+      `;
+
+      card.innerHTML = cardContent;
+      card.dataset.eventDate = event.date;
+      card.dataset.isPast = isPastEvent;
+      
+      // Add event listener for clicking
+      
+      card.addEventListener('click', () => {
+	  const eventDate = new Date(event.date);
+      const now = new Date();
+	  if (eventDate > now) {
+      const params = new URLSearchParams({ date: event.date });
+      window.location.href = `event.html?${params}`;
+      }
+      });
+
+      
+      return card;
+    }
+
+    function createEventCards() {
+      const asiaAustraliaGrid = document.getElementById('asia-australia-grid');
+      const europeGrid = document.getElementById('europe-grid');
+      const northAmericaGrid = document.getElementById('north-america-grid');
+      const latinAmericaGrid = document.getElementById('latin-america-grid');
+
+      asiaAustraliaGrid.innerHTML = '';
+      europeGrid.innerHTML = '';
+      northAmericaGrid.innerHTML = '';
+      latinAmericaGrid.innerHTML = '';
+
+      tourData.asiaAustralia.forEach(e => asiaAustraliaGrid.appendChild(createTourCard(e)));
+      tourData.europe.forEach(e => europeGrid.appendChild(createTourCard(e)));
+      tourData.northAmerica.forEach(e => northAmericaGrid.appendChild(createTourCard(e)));
+      tourData.latinAmerica.forEach(e => latinAmericaGrid.appendChild(createTourCard(e)));
+    }
+
+    function updateCountdowns() {
+      const cards = document.querySelectorAll('.tour-card');
+      const now = new Date();
+      cards.forEach(card => {
+        const eventDate = new Date(card.dataset.eventDate);
+        const isPastEvent = eventDate < now;
+        const countdownDisplay = card.querySelector('.countdown-display');
+        if (isPastEvent) {
+          card.classList.add('past-event');
+          countdownDisplay.textContent = 'SHOW COMPLETED';
+        } else {
+          const remaining = eventDate - now;
+          const f = formatTimeRemaining(Math.max(remaining, 0));
+          countdownDisplay.textContent = `${f.days}d ${f.hours}h ${f.minutes}m ${f.seconds}s`;
+        }
+      });
+    }
+
+    const urlMapping = {"2025-04-26T17:00:00+09:00": "saitama.html", "2025-04-27T16:00:00+09:00": "saitama.html", "2025-05-04T18:00:00+07:00": "bangkok.html", "2025-05-08T20:00:00+08:00": "manila.html", "2025-05-11T18:00:00+08:00": "taipei.html", "2025-05-15T20:00:00+09:00": "seoul.html", "2025-05-18T17:00:00+08:00": "hong-kong.html", "2025-05-21T20:00:00+08:00": "singapore.html", "2025-05-25T20:00:00+10:00": "sydney.html", "2025-05-27T20:00:00+10:00": "melbourne.html", "2025-06-10T20:30:00+02:00": "antwerp.html", "2025-06-14T20:30:00+02:00": "copenhagen.html", "2025-06-17T20:30:00+02:00": "berlin.html", "2025-06-19T20:30:00+01:00": "london.html", "2025-06-21T20:30:00+02:00": "amsterdam.html", "2025-06-25T20:30:00+02:00": "paris.html", "2025-06-29T20:30:00+02:00": "barcelona.html", "2025-07-02T20:30:00+02:00": "milan.html", "2025-07-10T20:00:00-07:00": "seattle-wa.html", "2025-07-13T20:00:00-07:00": "san-jose-ca.html", "2025-07-16T20:00:00-07:00": "los-angeles-ca.html", "2025-07-19T20:00:00-07:00": "phoenix-az.html", "2025-07-22T20:00:00-05:00": "fort-worth-tx.html", "2025-07-24T20:00:00-04:00": "duluth-ga.html", "2025-07-26T20:00:00-04:00": "orlando-fl.html", "2025-07-29T20:00:00-04:00": "baltimore-md.html", "2025-07-31T20:00:00-05:00": "chicago-il.html", "2025-08-03T20:00:00-04:00": "toronto-on.html", "2025-08-05T20:00:00-04:00": "newark-nj.html", "2025-08-24T20:00:00-10:00": "honolulu-hi.html", "2025-08-08T20:00:00-05:00": "mexico-city.html", "2025-08-13T20:30:00-03:00": "s\u00e3o-paulo.html", "2025-08-15T20:30:00-03:00": "buenos-aires.html", "2025-08-18T20:30:00-04:00": "santiago.html"};
+createEventCards();
+    setInterval(updateCountdowns, 1000);
+  </script>
+</body>
+</html>
